@@ -1,5 +1,5 @@
-const {
-  GraphQLString,
+const {  
+  GraphQLID,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLList
@@ -27,11 +27,11 @@ const RootQuery = new GraphQLObjectType({
     getPost: {
       type: PostType,
       args: {
-        _id: { type: new GraphQLNonNull(GraphQLString) }
+        _id: { type: new GraphQLNonNull(GraphQLID) }
       },
       async resolve(parent, args) {
         try {
-          const post = await Post.findById(_id);
+          const post = await Post.findById(args._id);
           if (!post) throw new Error("Post not found");
           return post;
         } catch (err) {
